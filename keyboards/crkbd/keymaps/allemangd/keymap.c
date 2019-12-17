@@ -1,4 +1,5 @@
 #include "allemangd.h"
+#include "split_common/split_util.h"
 
 extern uint8_t is_master;
 
@@ -51,12 +52,11 @@ enum crkbd_keycodes { RGBRST = NEW_SAFE_RANGE };
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
 ) \
   LAYOUT_wrapper( \
-     KC_TAB,        K01, K02, K03, K04, K05,                              K06, K07, K08, K09, K0A,         KC_BSPC, \
-     KC_ESC,        K11, K12, K13, K14, K15,                              K16, K17, K18, K19, K1A,         KC_MINS, \
-    KC_LSFT, CTL_T(K21), K22, K23, K24, K25,                              K26, K27, K28, K29, RCTL_T(K2A), KC_RSFT, \
-                                   KC_LGUI, ET_LWER, DL_LALT,    KC_RALT, SP_RAIS, KC_RGUI                          \
+     KC_TAB, K01, K02, K03, K04, K05,                              K06, K07, K08, K09, K0A, KC_BSPC, \
+     KC_ESC, K11, K12, K13, K14, K15,                              K16, K17, K18, K19, K1A, KC_MINS, \
+    KC_LSFT, K21, K22, K23, K24, K25,                              K26, K27, K28, K29, K2A, KC_RSFT, \
+                        KC_LCTL, ET_LWER, DL_LALT,    KC_RALT, SP_RAIS, KC_RGUI                          \
   )
-
 
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
@@ -118,23 +118,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_wrapper(
     KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
-    KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
+    KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, _______,
     _______, _________________LOWER_L3__________________,                    _________________LOWER_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_RAISE] = LAYOUT_wrapper( \
+  [_RAISE] = LAYOUT_wrapper(
     _______, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_ADJUST] = LAYOUT_wrapper( \
+  [_ADJUST] = LAYOUT_wrapper(
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
-    VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EEP_RST,
-    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, RGB_IDL,
-                                     HPT_TOG, KC_NUKE, _______,        _______, TG_MODS, HPT_FBK
+    VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________,  EEP_RST,
+    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________,  RGB_IDL,
+                                     UC_DISA, _______, UC_SHRG,        TG_MODS, _______, UC_FLIP
   )
 };
 // clang-format on
@@ -241,18 +241,7 @@ void render_mod_status(uint8_t modifiers) {
 }
 
 void render_bootmagic_status(void) {
-    /* Show Ctrl-Gui Swap options */
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
     oled_write_P(PSTR("BTMGK"), false);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(logo[0][0], !keymap_config.swap_lctl_lgui);
-    oled_write_P(logo[1][0], keymap_config.swap_lctl_lgui);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(logo[0][1], !keymap_config.swap_lctl_lgui);
-    oled_write_P(logo[1][1], keymap_config.swap_lctl_lgui);
     oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
 }
 
@@ -294,13 +283,12 @@ void oled_task_user(void) {
 #    endif
 
     update_log();
-    if (is_master) {
+    if (isLeftHand) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
     }
 }
-
 #endif
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -313,7 +301,6 @@ uint16_t get_tapping_term(uint16_t keycode) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-
 void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
 
 void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
