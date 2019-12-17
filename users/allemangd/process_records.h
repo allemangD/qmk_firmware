@@ -17,17 +17,7 @@ enum userspace_custom_keycodes {
     KC_MAKE,                        // Run keyboard's customized make command
     KC_RGB_T,                       // Toggles RGB Layer Indication mode
     RGB_IDL,                        // RGB Idling animations
-    KC_SECRET_1,                    // test1
-    KC_SECRET_2,                    // test2
-    KC_SECRET_3,                    // test3
-    KC_SECRET_4,                    // test4
-    KC_SECRET_5,                    // test5
     KC_CCCV,                        // Hold to copy, tap to paste
-    KC_NUKE,                        // NUCLEAR LAUNCH DETECTED!!!
-    UC_FLIP,                        // (ಠ痊ಠ)┻━┻
-    UC_TABL,                        // ┬─┬ノ( º _ ºノ)
-    UC_SHRG,                        // ¯\_(ツ)_/¯
-    UC_DISA,                        // ಠ_ಠ
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -69,6 +59,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define DL_RAIS LT(_RAISE, KC_DEL)
 #define SP_RAIS LT(_RAISE, KC_SPC)
 
+#define AP_RALT MT(MOD_RALT, KC_APP)
 #define DL_LALT MT(MOD_LALT, KC_DEL)
 
 /* OSM keycodes, to keep things clean and easy to change */
@@ -86,9 +77,4 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define OS_MEH OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
-#define ALT_APP ALT_T(KC_APP)
-
 #define MG_NKRO MAGIC_TOGGLE_NKRO
-
-#define UC_IRNY UC(0x2E2E)
-#define UC_CLUE UC(0x203D)
