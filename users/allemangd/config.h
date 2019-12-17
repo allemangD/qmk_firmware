@@ -4,7 +4,7 @@
 #define EECONFIG_MAGIC_NUMBER (uint16_t)0x1337
 
 #ifdef OLED_DRIVER_ENABLE
-    #define OLED_FONT_H "users/allemangd/font/hue_manitee_font.h"
+    #define OLED_FONT_H "users/allemangd/font.h"
 //    #define OLED_FONT_WIDTH 5
 //    #define OLED_FONT_HEIGHT 7
 #endif // OLED_DRIVER_ENABLE

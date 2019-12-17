@@ -58,7 +58,7 @@ LAYOUT_wrapper( \
    KC_TAB,     K01,     K02,     K03,     K04,     K05,                        K06,     K07,     K08,     K09,     K0A, KC_BSPC, \
    KC_ESC,     K11,     K12,     K13,     K14,     K15,                        K16,     K17,     K18,     K19,     K1A, KC_MINS, \
   KC_LSFT,     K21,     K22,     K23,     K24,     K25,                        K26,     K27,     K28,     K29,     K2A, KC_RSFT, \
-                                   KC_LCTL, ET_LWER, DL_LALT,        AP_RALT, SP_RAIS, KC_RGUI                                   \
+                                   KC_LCTL, ET_LWER, DL_LALT,        IN_RALT, SP_RAIS, AP_RGUI                                   \
 )
 //@formatter:on
 
@@ -90,8 +90,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_wrapper(
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________,   RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, _______,
-    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, _______,
-                                     _______, _______, _______,        TG_MODS, _______, _______
+    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, TG_MODS,
+                                     _______, _______, _______,        _______, _______, _______
   ),
 
   //region compatibility
@@ -248,34 +248,28 @@ void render_mod_status(uint8_t modifiers) {
 }
 
 void render_bootmagic_status(void) {
-    oled_write_P(PSTR("BTMGK"), false);
     oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
 }
 
-void render_user_status(void) {
-    oled_write_P(PSTR("USER:"), false);
-    oled_write_P(PSTR(" Anim"), userspace_config.rgb_matrix_idle_anim);
-    oled_write_P(PSTR(" Layr"), userspace_config.rgb_layer_change);
-    oled_write_P(PSTR(" Nuke"), userspace_config.nuke_switch);
+void render_logo(void) {
+    for (char r = 0; r < 3; r++)
+    for (char c = 0; c < 25; c++) {
+        oled_write_char(0x80 + 0x20 * r + c, false);
+    }
 }
 
 void render_status_main(void) {
     /* Show Keyboard Layout  */
     render_default_layer_state();
+    render_layer_state();
+    render_mod_status(get_mods() | get_oneshot_mods());
     render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
-    render_user_status();
-
-    render_keylogger_status();
 }
 
 void render_status_secondary(void) {
-    /* Show Keyboard Layout  */
-    render_default_layer_state();
-    render_layer_state();
-    render_mod_status(get_mods() | get_oneshot_mods());
-
-    render_keylogger_status();
+    /* Show Corne Logo  */
+    render_logo();
 }
 
 void oled_task_user(void) {

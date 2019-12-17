@@ -59,7 +59,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define DL_RAIS LT(_RAISE, KC_DEL)
 #define SP_RAIS LT(_RAISE, KC_SPC)
 
-#define AP_RALT MT(MOD_RALT, KC_APP)
+#define AP_RGUI MT(MOD_RGUI, KC_APP)
+
+#define IN_RALT MT(MOD_RALT, KC_INS)
 #define DL_LALT MT(MOD_LALT, KC_DEL)
 
 /* OSM keycodes, to keep things clean and easy to change */
