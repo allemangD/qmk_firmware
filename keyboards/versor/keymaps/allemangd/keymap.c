@@ -18,7 +18,7 @@
      KC_TAB,     K01,     K02,     K03,     K04,     K05, _______, KC_PSCR,     K06,     K07,     K08,     K09,     K0A, KC_BSPC, \
      KC_ESC,     K11,     K12,     K13,     K14,     K15, _______, _______,     K16,     K17,     K18,     K19,     K1A, KC_MINS, \
     KC_LSFT,     K21,     K22,     K23,     K24,     K25, _______, _______,     K26,     K27,     K28,     K29,     K2A, KC_RSFT, \
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LCTL,       ET_LWER,     KC_DEL,  KC_INS,      SP_RAIS,     KC_RALT,  KC_APP, KC_RGUI, KC_RCTL  \
+    KC_LCTL, KC_LALT, KC_LGUI, KC_LCTL,       ET_LWER,     KC_DEL,  KC_INS,      SP_RAIS,      KC_APP, KC_RGUI, KC_RALT, KC_RCTL  \
 )
 
 #define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
