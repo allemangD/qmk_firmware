@@ -135,7 +135,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _____________CARPLAX_QGMLWY_R2_____________       KC_I,    KC_A,    KC_E,    KC_O,    KC_H
 #define _____________CARPLAX_QGMLWY_R3_____________       KC_K,    KC_P,    KC_COMM, KC_DOT,  KC_SLSH
 
-
 #define _________________WHITE_R1__________________       KC_V,    KC_Y,    KC_D,    KC_COMM, KC_QUOT
 #define _________________WHITE_R2__________________       KC_A,    KC_T,    KC_H,    KC_E,    KC_B
 #define _________________WHITE_R3__________________       KC_P,    KC_K,    KC_G,    KC_W,    KC_Q
@@ -144,13 +143,13 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________WHITE_L2__________________       KC_MINS, KC_C,    KC_S,    KC_N,    KC_O  // KC_I
 #define _________________WHITE_L3__________________       KC_X,    KC_R,    KC_F,    KC_DOT,  KC_Z
 
-
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 #define ___________________BLANK___________________        _______, _______, _______, _______, _______
+
 
 
 #define _________________LOWER_L1__________________        ________________NUMBER_LEFT________________
@@ -171,6 +170,8 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________RAISE_R2__________________        _______, KC_LEFT, KC_DOWN, KC_RGHT, _______
 #define _________________RAISE_R3__________________        _______, _______, _______, _______, _______
 
+
+
 #define _________________ADJUST_L1_________________        _________________FUNC_LEFT_________________
 #define _________________ADJUST_L2_________________        _________________FUNC_RIGHT________________
 #define _________________ADJUST_L3_________________         KC_F11,  KC_F12, _______, _______, _______
@@ -178,5 +179,16 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_R1_________________        KC_MUTE, _______, KC_PGUP, _______, _______
 #define _________________ADJUST_R2_________________        KC_VOLU, KC_HOME, KC_PGDN,  KC_END, _______
 #define _________________ADJUST_R3_________________        KC_VOLD, KC_MPRV, KC_MPLY, KC_MNXT, _______
+
+
+
+#define __________________MOUSE_L1_________________        _______, _______, KC_MS_U, _______, _______
+#define __________________MOUSE_L2_________________        _______, KC_MS_L, KC_MS_D, KC_MS_R, _______
+#define __________________MOUSE_L3_________________        _______, _______, _______, _______, _______
+
+#define __________________MOUSE_R1_________________        KC_BTN3, KC_WH_L, KC_WH_U, KC_WH_R, _______
+#define __________________MOUSE_R2_________________        KC_BTN4, KC_BTN1, KC_WH_D, KC_BTN2, _______
+#define __________________MOUSE_R3_________________        KC_BTN5, _______, _______, _______, _______
+
 
 // clang-format on

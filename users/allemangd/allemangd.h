@@ -26,6 +26,7 @@ enum userspace_layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _MOUSE,
 };
 
 bool          mod_key_press_timer(uint16_t code, uint16_t mod_code, bool pressed);

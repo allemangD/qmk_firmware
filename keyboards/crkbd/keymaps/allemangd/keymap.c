@@ -57,8 +57,8 @@ enum crkbd_keycodes {
 LAYOUT_wrapper( \
    KC_TAB,     K01,     K02,     K03,     K04,     K05,                        K06,     K07,     K08,     K09,     K0A, KC_BSPC, \
    KC_ESC,     K11,     K12,     K13,     K14,     K15,                        K16,     K17,     K18,     K19,     K1A, KC_MINS, \
-  KC_LSFT,     K21,     K22,     K23,     K24,     K25,                        K26,     K27,     K28,     K29,     K2A, KC_RSFT, \
-                                   KC_LCTL, ET_LWER, DL_LALT,        IN_RALT, SP_RAIS, AP_RGUI                                   \
+  KC_LSFT, LGUI_T(K21), K22,     K23,     K24,     K25,                        K26,     K27,     K28, K29, RGUI_T(K2A), KC_RSFT, \
+                                   KC_LCTL, ET_LWER, DL_LALT,        IN_RALT, SP_RAIS, AP_RCTL                                   \
 )
 //@formatter:on
 
@@ -75,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_wrapper(
     _______, _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, _______,
-    _______, _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, _______,
+    _______, _________________LOWER_L2__________________,                    _________________LOWER_R2__________________,   MOUSE,
     _______, _________________LOWER_L3__________________,                    _________________LOWER_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
   [_RAISE] = LAYOUT_wrapper(
      KC_GRV, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
-    _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, _______,
+      MOUSE, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, _______,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
@@ -91,6 +91,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________,   RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, _______,
     MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, TG_MODS,
+                                     _______, _______, _______,        _______, _______, _______
+  ),
+
+  [_MOUSE] = LAYOUT_wrapper(
+    _______, __________________MOUSE_L1_________________,                    __________________MOUSE_R1_________________, _______,
+    _______, __________________MOUSE_L2_________________,                    __________________MOUSE_R2_________________, _______,
+    _______, __________________MOUSE_L3_________________,                    __________________MOUSE_R3_________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
@@ -227,6 +234,7 @@ void render_layer_state(void) {
     oled_write_P(PSTR("LAYER"), false);
     oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
     oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
+    oled_write_P(PSTR("Mouse"), layer_state_is(_MOUSE));
     oled_write_P(PSTR(" Mods"), layer_state_is(_MODS));
 }
 
@@ -288,86 +296,6 @@ void oled_task_user(void) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
         render_status_secondary();
-    }
-}
-#endif
-
-uint16_t get_tapping_term(uint16_t keycode) {
-    switch (keycode) {
-        case ALT_T(KC_A):
-            return TAPPING_TERM + 100;
-        default:
-            return TAPPING_TERM;
-    }
-}
-
-#ifdef RGB_MATRIX_ENABLE
-void suspend_power_down_keymap(void) { rgb_matrix_set_suspend_state(true); }
-
-void suspend_wakeup_init_keymap(void) { rgb_matrix_set_suspend_state(false); }
-
-void check_default_layer(uint8_t mode, uint8_t type) {
-    switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            rgb_matrix_layer_helper(HSV_CYAN, mode, rgb_matrix_config.speed, type);
-            break;
-        case _COLEMAK:
-            rgb_matrix_layer_helper(HSV_MAGENTA, mode, rgb_matrix_config.speed, type);
-            break;
-        case _DVORAK:
-            rgb_matrix_layer_helper(HSV_SPRINGGREEN, mode, rgb_matrix_config.speed, type);
-            break;
-        case _WORKMAN:
-            rgb_matrix_layer_helper(HSV_GOLDENROD, mode, rgb_matrix_config.speed, type);
-            break;
-        case _NORMAN:
-            rgb_matrix_layer_helper(HSV_CORAL, mode, rgb_matrix_config.speed, type);
-            break;
-        case _MALTRON:
-            rgb_matrix_layer_helper(HSV_YELLOW, mode, rgb_matrix_config.speed, type);
-            break;
-        case _EUCALYN:
-            rgb_matrix_layer_helper(HSV_PINK, mode, rgb_matrix_config.speed, type);
-            break;
-        case _CARPLAX:
-            rgb_matrix_layer_helper(HSV_BLUE, mode, rgb_matrix_config.speed, type);
-            break;
-    }
-}
-
-void rgb_matrix_indicators_user(void) {
-    if (userspace_config.rgb_layer_change &&
-#    ifdef RGB_DISABLE_WHEN_USB_SUSPENDED
-        !g_suspend_state &&
-#    endif
-#    if defined(RGBLIGHT_ENABLE)
-        (!rgblight_config.enable && rgb_matrix_config.enable)
-#    else
-        rgb_matrix_config.enable
-#    endif
-    ) {
-        switch (get_highest_layer(layer_state)) {
-            case _GAMEPAD:
-                rgb_matrix_layer_helper(HSV_ORANGE, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            case _DIABLO:
-                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            case _RAISE:
-                rgb_matrix_layer_helper(HSV_YELLOW, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            case _LOWER:
-                rgb_matrix_layer_helper(HSV_GREEN, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            case _ADJUST:
-                rgb_matrix_layer_helper(HSV_RED, 0, rgb_matrix_config.speed, LED_FLAG_UNDERGLOW);
-                break;
-            default: {
-                check_default_layer(IS_LAYER_ON(_MODS), LED_FLAG_UNDERGLOW);
-                break;
-            }
-        }
-        check_default_layer(0, LED_FLAG_MODIFIER);
     }
 }
 #endif

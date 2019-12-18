@@ -4,7 +4,7 @@
 #define EECONFIG_MAGIC_NUMBER (uint16_t)0x1337
 
 #ifdef OLED_DRIVER_ENABLE
-    #define OLED_FONT_H "users/allemangd/font.h"
+#define OLED_FONT_H "users/allemangd/font.h"
 //    #define OLED_FONT_WIDTH 5
 //    #define OLED_FONT_HEIGHT 7
 #endif // OLED_DRIVER_ENABLE
@@ -52,4 +52,15 @@
 #endif
 #ifdef LOCKING_RESYNC_ENABLE
 #    undef LOCKING_RESYNC_ENABLE
+#endif
+
+#ifdef MOUSEKEY_ENABLE
+#   define MOUSEKEY_DELAY 50
+#   define MOUSEKEY_INTERVAL 16
+
+#   define MOUSEKEY_MAX_SPEED 5
+#   define MOUSEKEY_TIME_TO_MAX 100
+
+#   define MOUSEKEY_WHEEL_MAX_SPEED 3
+#   define MOUSEKEY_WHEEL_TIME_TO_MAX 100
 #endif

@@ -3,6 +3,7 @@ SRC += allemangd.c \
 
 LTO_ENABLE              = yes
 SPACE_CADET_ENABLE      = no
+MOUSEKEY_ENABLE         = yes
 
 ifneq ($(strip $(NO_SECRETS)), yes)
     ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")

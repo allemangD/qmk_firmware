@@ -27,6 +27,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+#define MOUSE MO(_MOUSE)
 #define TG_MODS TG(_MODS)
 #define TG_GAME TG(_GAMEPAD)
 #define OS_LWR OSL(_LOWER)
@@ -60,6 +61,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define SP_RAIS LT(_RAISE, KC_SPC)
 
 #define AP_RGUI MT(MOD_RGUI, KC_APP)
+#define AP_RCTL MT(MOD_RCTL, KC_APP)
 
 #define IN_RALT MT(MOD_RALT, KC_INS)
 #define DL_LALT MT(MOD_LALT, KC_DEL)
