@@ -42,13 +42,7 @@
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
 #endif  // TAPPING_TERM
-#if defined(KEYBOARD_ergodox_ez)
-#    define TAPPING_TERM 185
-#elif defined(KEYBOARD_crkbd)
-#    define TAPPING_TERM 200
-#else
-#    define TAPPING_TERM 175
-#endif
+#define TAPPING_TERM 150
 
 #define TAP_CODE_DELAY 5
 
