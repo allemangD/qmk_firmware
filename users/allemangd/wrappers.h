@@ -187,8 +187,8 @@ NOTE: These are all the same length.  If you do a search/replace
 #define __________________MOUSE_L3_________________        _______, _______, _______, _______, _______
 
 #define __________________MOUSE_R1_________________        KC_BTN3, KC_WH_L, KC_WH_U, KC_WH_R, _______
-#define __________________MOUSE_R2_________________        KC_BTN4, KC_BTN1, KC_WH_D, KC_BTN2, _______
-#define __________________MOUSE_R3_________________        KC_BTN5, _______, _______, _______, _______
+#define __________________MOUSE_R2_________________        KC_BTN5, KC_BTN1, KC_WH_D, KC_BTN2, _______
+#define __________________MOUSE_R3_________________        KC_BTN4, _______, _______, _______, _______
 
 
 // clang-format on
