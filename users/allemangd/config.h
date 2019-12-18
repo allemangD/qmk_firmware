@@ -42,7 +42,7 @@
 #ifdef TAPPING_TERM
 #    undef TAPPING_TERM
 #endif  // TAPPING_TERM
-#define TAPPING_TERM 150
+#define TAPPING_TERM 160
 
 #define TAP_CODE_DELAY 5
 
