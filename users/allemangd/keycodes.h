@@ -1,4 +1,5 @@
 #pragma once
+
 #include "allemangd.h"
 
 #if defined(KEYMAP_SAFE_RANGE)
@@ -9,17 +10,23 @@
 
 enum userspace_custom_keycodes {
     KC_VRSN = PLACEHOLDER_SAFE_RANGE,  // Prints QMK Firmware and board info
+    KC_DVORAK,                      // Sets default layer to DVORAK
     KC_QWERTY,                      // Sets default layer to QWERTY
     KC_COLEMAK,                     // Sets default layer to COLEMAK
-    KC_DVORAK,                      // Sets default layer to DVORAK
-    KC_WORKMAN,                     // Sets default layer to WORKMAN
     KC_MAKE,                        // Run keyboard's customized make command
     KC_CCCV,                        // Hold to copy, tap to paste
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
-bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+bool process_keycodes_user(uint16_t, keyrecord_t *);
+
+bool switch_layout(uint16_t keycode);
+
+bool vrsn(void);
+
+bool make(void);
+
+bool copypaste(keyrecord_t *record);
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -36,12 +43,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define KC_RESET RESET
 #define KC_RST KC_RESET
-
-#ifdef SWAP_HANDS_ENABLE
-#    define KC_C1R3 SH_T(KC_TAB)
-#else  // SWAP_HANDS_ENABLE
-#    define KC_C1R3 KC_TAB
-#endif  // SWAP_HANDS_ENABLE
 
 #define BK_LWER LT(_LOWER, KC_BSPC)
 #define ET_LWER LT(_LOWER, KC_ENTER)

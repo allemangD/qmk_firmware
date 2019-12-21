@@ -1,4 +1,5 @@
 #pragma once
+
 #include "allemangd.h"
 /*
 Since our quirky block definitions are basically a list of comma separated
@@ -9,14 +10,8 @@ expanded before being used as arguments to the LAYOUT_xxx macro.
 #    define LAYOUT KEYMAP
 #endif
 
-// clang-format off
-#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
-#define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
+
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
-#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
-#define LAYOUT_ortho_5x12_wrapper(...)       LAYOUT_ortho_5x12(__VA_ARGS__)
-#define LAYOUT_gergo_wrapper(...)            LAYOUT_gergo(__VA_ARGS__)
 
 /*
 Blocks for each of the four major keyboard layouts
@@ -30,6 +25,7 @@ NOTE: These are all the same length.  If you do a search/replace
   lengths consistent.
 */
 
+//@formatter:off
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
 #define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
@@ -62,7 +58,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
 
-
 #define _________________LOWER_L1__________________        ________________NUMBER_LEFT________________
 #define _________________LOWER_L2__________________        ________________NUMBER_RIGHT_______________
 #define _________________LOWER_L3__________________        ___________________BLANK___________________
@@ -70,7 +65,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________LOWER_R1__________________        _______, KC_SLSH,  KC_EQL, KC_BSLS, KC_QUES
 #define _________________LOWER_R2__________________        _______, KC_LBRC, KC_LPRN, KC_RPRN, KC_RBRC
 #define _________________LOWER_R3__________________        ___________________BLANK___________________
-
 
 
 #define _________________RAISE_L1__________________        KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC
@@ -82,7 +76,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________RAISE_R3__________________        _______, _______, _______, _______, _______
 
 
-
 #define _________________ADJUST_L1_________________        _________________FUNC_LEFT_________________
 #define _________________ADJUST_L2_________________        _________________FUNC_RIGHT________________
 #define _________________ADJUST_L3_________________         KC_F11,  KC_F12, _______, _______, _______
@@ -92,7 +85,6 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_R3_________________        KC_VOLD, KC_MPRV, KC_MPLY, KC_MNXT, _______
 
 
-
 #define __________________MOUSE_L1_________________        _______, _______, KC_MS_U, _______, _______
 #define __________________MOUSE_L2_________________        _______, KC_MS_L, KC_MS_D, KC_MS_R, _______
 #define __________________MOUSE_L3_________________        _______, _______, _______, _______, _______
@@ -100,6 +92,4 @@ NOTE: These are all the same length.  If you do a search/replace
 #define __________________MOUSE_R1_________________        KC_BTN3, KC_WH_L, KC_WH_U, KC_WH_R, _______
 #define __________________MOUSE_R2_________________        KC_BTN5, KC_BTN1, KC_WH_D, KC_BTN2, _______
 #define __________________MOUSE_R3_________________        KC_BTN4, _______, _______, _______, _______
-
-
-// clang-format on
+//@formatter:on

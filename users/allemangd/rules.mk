@@ -1,5 +1,5 @@
 SRC += allemangd.c \
-       process_records.c
+       keycodes.c
 
 LTO_ENABLE              = yes
 SPACE_CADET_ENABLE      = no

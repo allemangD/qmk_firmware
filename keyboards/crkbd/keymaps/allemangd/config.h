@@ -20,21 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Select hand configuration */
-
-// #define MASTER_LEFT
-// #define MASTER_RIGHT
 #define EE_HANDS
 
 #undef USE_I2C
 #undef SSD1306OLED
 
 #define USE_SERIAL_PD2
-
-#ifdef UNICODE_ENABLE
-#define UNICODE_SELECTED_MODES UC_LNX, UC_WIN
-#define UNICODE_CYCLE_PERSIST true
-#endif
 
 #undef PRODUCT
 #define PRODUCT AllemangD Corne Keyboard

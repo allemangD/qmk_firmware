@@ -3,49 +3,8 @@
 
 extern uint8_t is_master;
 
-#ifdef RGBLIGHT_ENABLE
-// Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-#ifdef OLED_DRIVER_ENABLE
-#    define KEYLOGGER_LENGTH 5
-static uint32_t oled_timer                       = 0;
-static char     keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
-static uint16_t log_timer                        = 0;
-// clang-format off
-static const char PROGMEM code_to_name[0xFF] = {
-//   0    1    2    3    4    5    6    7    8    9    A    B    c    D    E    F
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',  // 0x
-    'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2',  // 1x
-    '3', '4', '5', '6', '7', '8', '9', '0',  20,  19,  27,  26,  22, '-', '=', '[',  // 2x
-    ']','\\', '#', ';','\'', '`', ',', '.', '/', 128, ' ', ' ', ' ', ' ', ' ', ' ',  // 3x
-    ' ', ' ', ' ', ' ', ' ', ' ', 'P', 'S', ' ', ' ', ' ', ' ',  16, ' ', ' ', ' ',  // 4x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 5x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 6x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 7x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 8x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // 9x
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ax
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Bx
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Cx
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Dx
-    'C', 'S', 'A', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  // Ex
-    ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '        // Fx
-};
-
-void add_keylog(uint16_t keycode);
-#endif
-
-/*
- * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical
- * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
- * that there is no need to set them up for each layout, and modify all of
- * them if I want to change them.  This helps to keep consistency and ease
- * of use. K## is a placeholder to pass through the individual keycodes
- */
-
 //@formatter:off
-#define LAYOUT_crkbd_base(\
+#define LAYOUT_keymap(\
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
@@ -56,11 +15,9 @@ LAYOUT_wrapper( \
   KC_LSFT, LGUI_T(K21), K22,     K23,     K24,     K25,                        K26,     K27,     K28, K29, RGUI_T(K2A), KC_RSFT, \
                                    KC_LCTL, ET_LWER, DL_LALT,        IN_RALT, SP_RAIS, AP_RCTL                                   \
 )
-//@formatter:on
 
-#define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
+#define LAYOUT_keymap_wrapper(...)       LAYOUT_keymap(__VA_ARGS__)
 
-//@formatter:off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_wrapper(
     _______, _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, _______,
@@ -90,73 +47,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  //region compatibility
-  [_QWERTY] = LAYOUT_crkbd_base_wrapper(
+  [_DVORAK] = LAYOUT_keymap_wrapper(
+    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
+  ),
+
+  [_QWERTY] = LAYOUT_keymap_wrapper(
     _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
     _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
     _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
   ),
 
-  [_COLEMAK] = LAYOUT_crkbd_base_wrapper(
+  [_COLEMAK] = LAYOUT_keymap_wrapper(
     _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
     _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
     _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
   ),
-
-  [_DVORAK] = LAYOUT_crkbd_base_wrapper(
-    _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
-    _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
-    _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
-  //endregion
 };
 //formatter:on
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
 #ifdef OLED_DRIVER_ENABLE
-        oled_timer = timer_read32();
-        add_keylog(keycode);
-#endif
-#ifndef SPLIT_KEYBOARD
-        if (keycode == RESET && !is_master) {
-            return false;
-        }
-#endif
-    }
-    return true;
-}
-
-#ifdef OLED_DRIVER_ENABLE
-oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
-
-void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) || (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
-        keycode = keycode & 0xFF;
-    } else if (keycode > 0xFF) {
-        keycode = 0;
-    }
-
-    for (uint8_t i = (KEYLOGGER_LENGTH - 1); i > 0; --i) {
-        keylog_str[i] = keylog_str[i - 1];
-    }
-
-    if (keycode < (sizeof(code_to_name) / sizeof(char))) {
-        keylog_str[0] = pgm_read_byte(&code_to_name[keycode]);
-    }
-
-    log_timer = timer_read();
-}
-
-void update_log(void) {
-    if (timer_elapsed(log_timer) > 750) {
-        // add_keylog(0);
-    }
-}
-
-void render_keylogger_status(void) {
-    oled_write_P(PSTR("KLogr"), false);
-    oled_write(keylog_str, false);
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
 }
 
 void render_default_layer_state(void) {
@@ -234,18 +147,7 @@ void render_status_secondary(void) {
     render_logo();
 }
 
-void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 30000) {
-        oled_off();
-        return;
-    }
-#    ifndef SPLIT_KEYBOARD
-    else {
-        oled_on();
-    }
-#    endif
-
-    update_log();
+void oled_task_keymap(void) {
     if (isLeftHand) {
         render_status_main();  // Renders the current keyboard state (layer, lock, caps, scroll, etc)
     } else {
@@ -253,3 +155,10 @@ void oled_task_user(void) {
     }
 }
 #endif
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    if(keycode == RESET && !is_master) {
+        return false;
+    }
+    return true;
+}
