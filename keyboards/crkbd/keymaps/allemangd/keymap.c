@@ -62,13 +62,6 @@ LAYOUT_wrapper( \
 
 //@formatter:off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_MODS] = LAYOUT_wrapper(
-    KC_NLCK, KC_CLCK, KC_SLCK, _______, _______, _______,                    KC_PDOT,   KC_P7,   KC_P8,   KC_P9, KC_PMNS, _______,
-    _______, ___________________BLANK___________________,                    KC_PSLS,   KC_P4,   KC_P5,   KC_P6, KC_PPLS, _______,
-    _______, ___________________BLANK___________________,                    KC_PAST,   KC_P1,   KC_P2,   KC_P3, KC_PENT, _______,
-                                     _______, _______, _______,        _______, _______, KC_P0
-  ),
-
   [_LOWER] = LAYOUT_wrapper(
     _______, _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, _______,
     _______, _________________LOWER_L2__________________,                    _________________LOWER_R2__________________,   MOUSE,
@@ -85,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_wrapper(
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________,   RESET,
-    VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, KC_PSCR,
-    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, TG_MODS,
+    KC_VRSN, _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, KC_PSCR,
+    MG_NKRO, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________,  UC_MOD,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
@@ -114,36 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
     _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
     _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
-  ),
-
-  [_WORKMAN] = LAYOUT_crkbd_base_wrapper(
-    _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
-    _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
-    _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
-  ),
-
-  [_NORMAN] = LAYOUT_crkbd_base_wrapper(
-    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
-    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
-    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
-  ),
-
-  [_MALTRON] = LAYOUT_crkbd_base_wrapper(
-    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
-    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
-    _________________MALTRON_L3________________, _________________MALTRON_R3________________
-  ),
-
-  [_EUCALYN] = LAYOUT_crkbd_base_wrapper(
-    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
-    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
-    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
-  ),
-
-  [_CARPLAX] = LAYOUT_crkbd_base_wrapper(
-    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
-    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
-    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
   ),
   //endregion
 };
@@ -208,21 +171,6 @@ void render_default_layer_state(void) {
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
             break;
-        case _WORKMAN:
-            oled_write_P(PSTR(" WKMN"), false);
-            break;
-        case _NORMAN:
-            oled_write_P(PSTR(" NORM"), false);
-            break;
-        case _MALTRON:
-            oled_write_P(PSTR(" MLTN"), false);
-            break;
-        case _EUCALYN:
-            oled_write_P(PSTR(" ECLN"), false);
-            break;
-        case _CARPLAX:
-            oled_write_P(PSTR(" CRPX"), false);
-            break;
     }
 }
 
@@ -231,7 +179,6 @@ void render_layer_state(void) {
     oled_write_P(PSTR("Lower"), layer_state_is(_LOWER));
     oled_write_P(PSTR("Raise"), layer_state_is(_RAISE));
     oled_write_P(PSTR("Mouse"), layer_state_is(_MOUSE));
-    oled_write_P(PSTR(" Mods"), layer_state_is(_MODS));
 }
 
 void render_keylock_status(uint8_t led_usb_state) {
@@ -257,7 +204,7 @@ void render_bootmagic_status(void) {
 
 void render_unicode_mode(void) {
 #ifdef UNICODE_ENABLE
-    oled_write_P(PSTR("UNIC:"), false);
+    oled_write_P(PSTR("Unic:"), false);
     oled_write_P(PSTR("  LNX"), get_unicode_input_mode() == UC_LNX);
     oled_write_P(PSTR("  WIN"), get_unicode_input_mode() == UC_WIN);
 #endif

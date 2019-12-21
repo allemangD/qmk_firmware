@@ -8,17 +8,13 @@
 #endif
 
 enum userspace_custom_keycodes {
-    VRSN = PLACEHOLDER_SAFE_RANGE,  // Prints QMK Firmware and board info
+    KC_VRSN = PLACEHOLDER_SAFE_RANGE,  // Prints QMK Firmware and board info
     KC_QWERTY,                      // Sets default layer to QWERTY
     KC_COLEMAK,                     // Sets default layer to COLEMAK
     KC_DVORAK,                      // Sets default layer to DVORAK
     KC_WORKMAN,                     // Sets default layer to WORKMAN
-    KC_DIABLO_CLEAR,                // Clears all Diablo Timers
     KC_MAKE,                        // Run keyboard's customized make command
-    KC_RGB_T,                       // Toggles RGB Layer Indication mode
-    RGB_IDL,                        // RGB Idling animations
     KC_CCCV,                        // Hold to copy, tap to paste
-    EM_DIS,
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -29,16 +25,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 #define MOUSE MO(_MOUSE)
-#define TG_MODS TG(_MODS)
-#define TG_GAME TG(_GAMEPAD)
+
 #define OS_LWR OSL(_LOWER)
 #define OS_RSE OSL(_RAISE)
-
-#define KC_SEC1 KC_SECRET_1
-#define KC_SEC2 KC_SECRET_2
-#define KC_SEC3 KC_SECRET_3
-#define KC_SEC4 KC_SECRET_4
-#define KC_SEC5 KC_SECRET_5
 
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
@@ -50,8 +39,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #ifdef SWAP_HANDS_ENABLE
 #    define KC_C1R3 SH_T(KC_TAB)
-#elif defined(DRASHNA_LP)
-#    define KC_C1R3 TG(_GAMEPAD)
 #else  // SWAP_HANDS_ENABLE
 #    define KC_C1R3 KC_TAB
 #endif  // SWAP_HANDS_ENABLE

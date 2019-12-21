@@ -4,20 +4,9 @@ uint16_t copy_paste_timer;
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
-__attribute__((weak)) bool process_record_secrets(uint16_t keycode, keyrecord_t *record) { return true; }
-
-// Defines actions tor my global custom keycodes. Defined in drashna.h file
+// Defines actions for my global custom keycodes. Defined in allemangd.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // If console is enabled, it will print the matrix position and status of each key pressed
-#ifdef KEYLOGGER_ENABLE
-#    if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_keebio_iris_rev2)
-    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.row, record->event.key.col, record->event.pressed);
-#    else
-    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-#    endif
-#endif  // KEYLOGGER_ENABLE
-
     switch (keycode) {
     case KC_QWERTY ... KC_WORKMAN:
         if (record->event.pressed) {
@@ -52,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
 
-    case VRSN:  // Prints firmware version
+    case KC_VRSN:  // Prints firmware version
         if (record->event.pressed) {
             send_string_with_delay_P(PSTR(QMK_KEYBOARD
             "/"
@@ -64,23 +53,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
 
-    case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
-#ifdef TAP_DANCE_ENABLE
-        if (record->event.pressed) {
-            for (uint8_t index = 0; index < 4; index++) {
-                diablo_timer[index].key_interval = 0;
-            }
-        }
-#endif  // TAP_DANCE_ENABLE
-        break;
-
-    case EM_DIS:
-# ifdef UNICODE_ENABLE
-    if (record->event.pressed) {
-        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
-    }
-#endif
-        break;
+//    case EM_DIS:
+//# ifdef UNICODE_ENABLE
+//    if (record->event.pressed) {
+//        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+//    }
+//#endif
+//        break;
 
     case KC_CCCV:  // One key copy/paste
         if (record->event.pressed) {
@@ -98,9 +77,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         break;
     }
-    return process_record_keymap(keycode, record) &&
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-        process_record_user_rgb(keycode, record) &&
-#endif  // RGBLIGHT_ENABLE
-        process_record_secrets(keycode, record);
+    return process_record_keymap(keycode, record);
 }
