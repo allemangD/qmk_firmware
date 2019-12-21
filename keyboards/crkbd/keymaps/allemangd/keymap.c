@@ -256,9 +256,11 @@ void render_bootmagic_status(void) {
 }
 
 void render_unicode_mode(void) {
+#ifdef UNICODE_ENABLE
     oled_write_P(PSTR("UNIC:"), false);
     oled_write_P(PSTR("  LNX"), get_unicode_input_mode() == UC_LNX);
     oled_write_P(PSTR("  WIN"), get_unicode_input_mode() == UC_WIN);
+#endif
 }
 
 void render_logo(void) {
