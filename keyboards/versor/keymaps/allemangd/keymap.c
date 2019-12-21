@@ -79,12 +79,3 @@ LAYOUT_wrapper(
 //endregion
 };
 //formatter:on
-
-uint16_t get_tapping_term(uint16_t keycode) {
-    switch (keycode) {
-    case ALT_T(KC_A):
-        return TAPPING_TERM + 100;
-    default:
-        return TAPPING_TERM;
-    }
-}
