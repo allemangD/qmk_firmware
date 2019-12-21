@@ -176,7 +176,7 @@ NOTE: These are all the same length.  If you do a search/replace
 #define _________________ADJUST_L2_________________        _________________FUNC_RIGHT________________
 #define _________________ADJUST_L3_________________         KC_F11,  KC_F12, _______, _______, _______
 
-#define _________________ADJUST_R1_________________        KC_MUTE, _______, KC_PGUP, _______, _______
+#define _________________ADJUST_R1_________________        KC_MUTE, _______, KC_PGUP, _______,  UC_MOD
 #define _________________ADJUST_R2_________________        KC_VOLU, KC_HOME, KC_PGDN,  KC_END, _______
 #define _________________ADJUST_R3_________________        KC_VOLD, KC_MPRV, KC_MPLY, KC_MNXT, _______
 

@@ -36,10 +36,6 @@ static const char PROGMEM code_to_name[0xFF] = {
 void add_keylog(uint16_t keycode);
 #endif
 
-enum crkbd_keycodes {
-    RGBRST = NEW_SAFE_RANGE
-};
-
 /*
  * The `LAYOUT_crkbd_base` macro is a template to allow the use of identical
  * modifiers for the default layouts (eg QWERTY, Colemak, Dvorak, etc), so
@@ -82,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_wrapper(
      KC_GRV, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
-      MOUSE, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, _______,
+    _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, _______,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
@@ -259,6 +255,12 @@ void render_bootmagic_status(void) {
     oled_write_P(PSTR(" NKRO"), keymap_config.nkro);
 }
 
+void render_unicode_mode(void) {
+    oled_write_P(PSTR("UNIC:"), false);
+    oled_write_P(PSTR("  LNX"), get_unicode_input_mode() == UC_LNX);
+    oled_write_P(PSTR("  WIN"), get_unicode_input_mode() == UC_WIN);
+}
+
 void render_logo(void) {
     for (char r = 0; r < 3; r++)
     for (char c = 0; c < 25; c++) {
@@ -273,6 +275,9 @@ void render_status_main(void) {
     render_mod_status(get_mods() | get_oneshot_mods());
     render_keylock_status(host_keyboard_leds());
     render_bootmagic_status();
+#ifdef UNICODE_ENABLE
+    render_unicode_mode();
+#endif
 }
 
 void render_status_secondary(void) {

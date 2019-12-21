@@ -44,7 +44,7 @@
 #endif  // TAPPING_TERM
 #define TAPPING_TERM 160
 
-#define TAP_CODE_DELAY 5
+#define TAP_CODE_DELAY 17
 
 /* Disable unused and unneeded features to reduce on firmware size */
 #ifdef LOCKING_SUPPORT_ENABLE

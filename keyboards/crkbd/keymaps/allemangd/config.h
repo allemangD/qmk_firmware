@@ -67,8 +67,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define SOLENOID_PIN B7
 #endif
 
+#ifdef UNICODE_ENABLE
+#define UNICODE_SELECTED_MODES UC_LNX, UC_WIN
+#define UNICODE_CYCLE_PERSIST true
+#endif
+
 #undef PRODUCT
-#define PRODUCT Drashna Hacked Corne Keyboard
+#define PRODUCT AllemangD Corne Keyboard
 
 #define OLED_DISABLE_TIMEOUT
 #define TAPPING_TERM_PER_KEY

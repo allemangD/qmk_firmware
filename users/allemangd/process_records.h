@@ -18,6 +18,7 @@ enum userspace_custom_keycodes {
     KC_RGB_T,                       // Toggles RGB Layer Indication mode
     RGB_IDL,                        // RGB Idling animations
     KC_CCCV,                        // Hold to copy, tap to paste
+    EM_DIS,
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
 };
 

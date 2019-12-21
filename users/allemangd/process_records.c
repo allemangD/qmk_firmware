@@ -19,71 +19,88 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif  // KEYLOGGER_ENABLE
 
     switch (keycode) {
-        case KC_QWERTY ... KC_WORKMAN:
-            if (record->event.pressed) {
-                uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
-                if (!mods) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY);
-                } else if (mods & MOD_MASK_SHIFT) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY + 4);
-                } else if (mods & MOD_MASK_CTRL) {
-                    set_single_persistent_default_layer(keycode - KC_QWERTY + 8);
-                }
+    case KC_QWERTY ... KC_WORKMAN:
+        if (record->event.pressed) {
+            uint8_t mods = mod_config(get_mods() | get_oneshot_mods());
+            if (!mods) {
+                set_single_persistent_default_layer(keycode - KC_QWERTY);
+            } else if (mods & MOD_MASK_SHIFT) {
+                set_single_persistent_default_layer(keycode - KC_QWERTY + 4);
+            } else if (mods & MOD_MASK_CTRL) {
+                set_single_persistent_default_layer(keycode - KC_QWERTY + 8);
             }
-            break;
+        }
+        break;
 
-        case KC_MAKE:
-            if (!record->event.pressed) {
-                SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+    case KC_MAKE:
+        if (!record->event.pressed) {
+            SEND_STRING("make "
+            QMK_KEYBOARD
+            ":"
+            QMK_KEYMAP
 #if (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
-                            ":dfu"
+            ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
-                            ":teensy"
+            ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
-                            ":avrdude"
+            ":avrdude"
 #else
-                            ":dfu-util"
+            ":dfu-util"
 #endif
-                            SS_TAP(X_ENTER));
-            }
-            return false;
-            break;
+            SS_TAP(X_ENTER));
+        }
+        return false;
+        break;
 
-        case VRSN:  // Prints firmware version
-            if (record->event.pressed) {
-                send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), TAP_CODE_DELAY);
-            }
-            break;
+    case VRSN:  // Prints firmware version
+        if (record->event.pressed) {
+            send_string_with_delay_P(PSTR(QMK_KEYBOARD
+            "/"
+            QMK_KEYMAP
+            " @ "
+            QMK_VERSION
+            ", Built on: "
+            QMK_BUILDDATE), TAP_CODE_DELAY);
+        }
+        break;
 
-        case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
+    case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
 #ifdef TAP_DANCE_ENABLE
-            if (record->event.pressed) {
-                for (uint8_t index = 0; index < 4; index++) {
-                    diablo_timer[index].key_interval = 0;
-                }
+        if (record->event.pressed) {
+            for (uint8_t index = 0; index < 4; index++) {
+                diablo_timer[index].key_interval = 0;
             }
+        }
 #endif  // TAP_DANCE_ENABLE
-            break;
+        break;
 
-        case KC_CCCV:  // One key copy/paste
-            if (record->event.pressed) {
-                copy_paste_timer = timer_read();
-            } else {
-                if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
-                    register_code(KC_LCTL);
-                    tap_code(KC_C);
-                    unregister_code(KC_LCTL);
-                } else {  // Tap, paste
-                    register_code(KC_LCTL);
-                    tap_code(KC_V);
-                    unregister_code(KC_LCTL);
-                }
+    case EM_DIS:
+# ifdef UNICODE_ENABLE
+    if (record->event.pressed) {
+        send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+    }
+#endif
+        break;
+
+    case KC_CCCV:  // One key copy/paste
+        if (record->event.pressed) {
+            copy_paste_timer = timer_read();
+        } else {
+            if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {  // Hold, copy
+                register_code(KC_LCTL);
+                tap_code(KC_C);
+                unregister_code(KC_LCTL);
+            } else {  // Tap, paste
+                register_code(KC_LCTL);
+                tap_code(KC_V);
+                unregister_code(KC_LCTL);
             }
-            break;
+        }
+        break;
     }
     return process_record_keymap(keycode, record) &&
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-           process_record_user_rgb(keycode, record) &&
+        process_record_user_rgb(keycode, record) &&
 #endif  // RGBLIGHT_ENABLE
-           process_record_secrets(keycode, record);
+        process_record_secrets(keycode, record);
 }
