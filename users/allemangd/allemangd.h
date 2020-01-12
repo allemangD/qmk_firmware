@@ -13,6 +13,7 @@ enum userspace_layers {
     _NUMLOCK = 0,
     _QWERTY,
     _COLEMAK,
+    _GAMEPAD,
     _LOWER,
     _RAISE,
     _ADJUST,

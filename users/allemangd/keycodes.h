@@ -13,6 +13,7 @@ enum userspace_custom_keycodes {
     KC_DVORAK,                      // Sets default layer to DVORAK
     KC_QWERTY,                      // Sets default layer to QWERTY
     KC_COLEMAK,                     // Sets default layer to COLEMAK
+    KC_GAMEPAD,                       // Sets default layer to GAMES
     KC_MAKE,                        // Run keyboard's customized make command
     KC_CCCV,                        // Hold to copy, tap to paste
     NEW_SAFE_RANGE                  // use "NEWPLACEHOLDER for keymap specific codes
@@ -40,6 +41,7 @@ bool copypaste(keyrecord_t *record);
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
+#define GAMEPAD KC_GAMEPAD
 
 #define KC_RESET RESET
 #define KC_RST KC_RESET

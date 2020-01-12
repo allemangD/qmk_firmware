@@ -17,7 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "allemangd.h"
 
+#ifdef OLED_DRIVER_ENABLE
 static uint32_t oled_timer;
+#endif
 
 __attribute__((weak)) layer_state_t layer_state_set_keymap(layer_state_t state) {
     return state;

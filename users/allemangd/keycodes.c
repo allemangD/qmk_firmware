@@ -5,7 +5,7 @@
 
 bool process_keycodes_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-    case KC_DVORAK ... KC_COLEMAK:
+    case KC_DVORAK ... KC_GAMEPAD:
         return PRESS && switch_layout(keycode);
     case KC_MAKE:
         return PRESS && make();

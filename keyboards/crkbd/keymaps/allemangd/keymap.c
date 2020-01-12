@@ -47,6 +47,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      _______, _______, _______,        _______, _______, _______
   ),
 
+  [_GAMEPAD] = LAYOUT_wrapper(
+     KC_TAB, _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________,  DVORAK,
+    KC_LALT, _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________, _______,
+    KC_LSFT, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________, _______,
+                                     KC_LCTL,  KC_SPC, KC_LALT,        _______, _______, _______
+  ),
+
   [_DVORAK] = LAYOUT_keymap_wrapper(
     _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
     _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
@@ -83,6 +90,9 @@ void render_default_layer_state(void) {
             break;
         case _DVORAK:
             oled_write_P(PSTR(" DVRK"), false);
+            break;
+        case _GAMEPAD:
+            oled_write_P(PSTR(" GAME"), false);
             break;
     }
 }
