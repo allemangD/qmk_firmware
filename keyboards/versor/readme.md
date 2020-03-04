@@ -6,6 +6,8 @@
 
 [Buildlog](https://imgur.com/a/HH1wMnI)
 
+[Backplate image generator](https://github.com/allemangD/hopf-fibration)
+
 * Keyboard Maintainer: [allemangd](https://github.com/allemangd)
 * Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: Links to where you can find this hardware
