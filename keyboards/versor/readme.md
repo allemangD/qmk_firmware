@@ -6,7 +6,7 @@
 
 [Buildlog](https://imgur.com/a/HH1wMnI)
 
-* Keyboard Maintainer: [allemangd](https://github.com/yourusername)
+* Keyboard Maintainer: [allemangd](https://github.com/allemangd)
 * Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: Links to where you can find this hardware
 
