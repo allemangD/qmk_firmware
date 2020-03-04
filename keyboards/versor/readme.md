@@ -1,8 +1,10 @@
 # versor
 
-![versor](imgur.com image replace me!)
+![versor top](https://i.imgur.com/vBT9iTr.jpg)
 
-A short description of the keyboard/project
+![versor bottom](https://i.imgur.com/C7kDITu.jpg)
+
+[Buildlog](https://imgur.com/a/HH1wMnI)
 
 * Keyboard Maintainer: [allemangd](https://github.com/yourusername)
 * Hardware Supported: The PCBs, controllers supported
