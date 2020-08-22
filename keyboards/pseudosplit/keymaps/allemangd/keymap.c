@@ -25,7 +25,7 @@
     K31, K32, K33, K34, K35,     K36, K37, K38, K39, K3A  \
 ) \
   LAYOUT_wrapper( \
-    _______,     K01,     K02,     K03,     K04,     K05,           K06,     K07,     K08,     K09,     K0A, _______, \
+    _______,     K01,     K02,     K03,     K04,     K05,           K06,     K07,     K08,     K09,     K0A,  KC_BRK, \
      KC_TAB,     K11,     K12,     K13,     K14,     K15,           K16,     K17,     K18,     K19,     K1A, KC_BSPC, \
      KC_ESC,     K21,     K22,     K23,     K24,     K25,           K26,     K27,     K28,     K29,     K2A, KC_MINS, \
     KC_LSFT, LGUI_T(K31), K32,     K33,     K34,     K35,           K36,     K37,     K38, K39, RGUI_T(K3A), KC_RSFT, \
@@ -68,8 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_GAMEPAD] = LAYOUT_wrapper(
-         KC_GRV, ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________,  DVORAK,
-         KC_TAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, _______,
+         KC_GRV, ________________NUMBER_LEFT________________, ________________NUMBER_RIGHT_______________, _______,
+         KC_TAB, _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,  DVORAK,
          KC_ESC, _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, _______,
         KC_LSFT, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, _______,
         KC_LCTL,          _______, KC_LCTL,  KC_SPC, KC_LALT, _______, _______, _______, _______,          _______
