@@ -28,8 +28,8 @@
     _______,     K01,     K02,     K03,     K04,     K05,           K06,     K07,     K08,     K09,     K0A, _______, \
      KC_TAB,     K11,     K12,     K13,     K14,     K15,           K16,     K17,     K18,     K19,     K1A, KC_BSPC, \
      KC_ESC,     K21,     K22,     K23,     K24,     K25,           K26,     K27,     K28,     K29,     K2A, KC_MINS, \
-    KC_LSFT,     K31,     K32,     K33,     K34,     K35,           K36,     K37,     K38,     K39,     K3A, KC_RSFT, \
-    _______,          _______, KC_LCTL, ET_LWER, DL_LALT,       IN_RALT, SP_RAIS, AP_RCTL, _______,            RESET  \
+    KC_LSFT, LGUI_T(K31), K32,     K33,     K34,     K35,           K36,     K37,     K38, K39, RGUI_T(K3A), KC_RSFT, \
+    _______,          KC_LGUI, KC_LCTL, ET_LWER, DL_LALT,       IN_RALT, SP_RAIS, AP_RCTL, KC_RGUI,          _______  \
 )
 
 #define LAYOUT_keymap_wrapper(...) LAYOUT_keymap(__VA_ARGS__)
