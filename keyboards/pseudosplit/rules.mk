@@ -31,3 +31,5 @@ AUDIO_ENABLE ?= no
 RGBLIGHT_ENABLE ?= no
 BLUETOOTH_ENABLE ?= no  # Enable Bluetooth with the Adafruit EZ-Key HID
 BLUETOOTH = AdafruitBLE # super important otherwise buetooth will not work
+
+DEBOUNCE_TYPE = eager_pk
