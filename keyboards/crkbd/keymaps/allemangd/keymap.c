@@ -48,10 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_GAMEPAD] = LAYOUT_wrapper(
-     KC_TAB, _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________,  DVORAK,
-     KC_ESC, _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________, _______,
-    KC_LSFT, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________, _______,
-                                     KC_LCTL,  KC_SPC, KC_LALT,        _______, _______, _______
+       KC_1,  KC_TAB, _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________,
+       KC_2, KC_LSFT, _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________,
+       KC_3, KC_LCTL, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________,
+                                      KC_BRK,  KC_SPC, KC_LALT,         DVORAK,  DVORAK,  DVORAK
   ),
 
   [_DVORAK] = LAYOUT_keymap_wrapper(
