@@ -30,8 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION BT Keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 12
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 6
 
 /*
  * Keyboard Matrix Assignments
@@ -43,8 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
  */
-#define MATRIX_ROW_PINS { D3, D2, D1, D0, C6, }
-#define MATRIX_COL_PINS { D7, B5, B6, B7, D6, C7,   F7, F6, F5, F4, F1, F0 }
+#define MATRIX_ROW_PINS { C7, D6, B7, B6, B5,    D1, D0, C6, D3, D2 }
+#define MATRIX_COL_PINS { F7, F6, F5, F4, F1, F0 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL*/
